@@ -18,21 +18,30 @@ const Page = () => {
   const form = useForm({
     defaultValues: {
       email: '',
+      username: '',
       password: '',
     },
     onSubmit: async ({ value }) => {
       setIsLoading(true);
 
       const res = await axios.post(
-        'http://localhost:3000/api/auth/login',
+        'http://localhost:3000/api/auth/register',
         {
           email: value.email,
+          username: value.username,
           password: value.password,
         },
         { validateStatus: () => true, withCredentials: true }
       );
 
+      console.log(res);
+
       switch (res?.status) {
+        case 400:
+          toast({
+            title: 'Слишком простой пароль!',
+          });
+          break;
         case 401:
           toast({
             title: 'Проверьте правильность введённых данных',
@@ -43,13 +52,14 @@ const Page = () => {
           break;
         case 201:
           router.replace('/dashboard');
-
+          break;
         default:
           toast({
             title: 'Внутренняя ошибка сервера',
             description: 'Уже чиним!',
             variant: 'destructive',
           });
+          break;
       }
 
       setIsLoading(false);
@@ -65,7 +75,24 @@ const Page = () => {
         form.handleSubmit();
       }}
     >
-      <title>Авторизация | Cinnabon.js </title>
+      <title>Регистрация | Cinnabon.js</title>
+      <form.Field
+        name="username"
+        children={(field) => (
+          <div>
+            <Label>Имя пользователя</Label>
+            <Input
+              disabled={isLoading}
+              className="w-96"
+              name={field.name}
+              placeholder="Никнейм"
+              value={field.state.value}
+              onBlur={field.handleBlur}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </div>
+        )}
+      />
       <form.Field
         name="email"
         children={(field) => (
@@ -106,9 +133,9 @@ const Page = () => {
         <hr />
       </div>
       <div className="flex justify-between items-center">
-        <Button disabled={isLoading}>Войти</Button>
+        <Button disabled={isLoading}>Зарегистрироваться</Button>
         <Button asChild type="button" size="sm" variant="link">
-          <Link href="/register">У меня нет аккаунта</Link>
+          <Link href="/login">У меня есть аккаунт</Link>
         </Button>
       </div>
     </form>

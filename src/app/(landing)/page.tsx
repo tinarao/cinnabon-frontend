@@ -4,7 +4,9 @@ export default function Home() {
   return (
     <>
       <LandingHeader />
-      <main></main>
+      <main>
+        <h1></h1>
+      </main>
     </>
   );
 }

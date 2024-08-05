@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { Moon, Sun } from 'lucide-react';
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
@@ -17,8 +18,8 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          Тема: {theme === 'light' ? 'светлая' : 'тёмная'}
+        <Button variant="outline" size="icon">
+          {theme === 'light' ? <Sun /> : <Moon />}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

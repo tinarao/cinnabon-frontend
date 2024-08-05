@@ -13,15 +13,15 @@ interface Session {
 interface Cinnabon {
     _id: string;
 
+    name: string;
+
     creator: User;
     creatorId: string;
 
-    projectName: string;
     key: string;
 
     requests: number;
     limit: number;
-    plan: string;
 
     sessions: Session[]
 }

@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
 import { Loader2 } from 'lucide-react';
+import Loading from '@/components/Loading';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -28,10 +29,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <DashbordHeader />
-      <main>
+      <main className="py-2 bg-secondary">
         {isLoading ? (
           <div className="py-48">
-            <Loader2 size={32} className="w-fit mx-auto animate-spin" />
+            <Loading />
           </div>
         ) : (
           <>{children}</>
