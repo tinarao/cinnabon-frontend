@@ -43,7 +43,7 @@ const Page = () => {
           break;
         case 201:
           router.replace('/dashboard');
-
+          break;
         default:
           toast({
             title: 'Внутренняя ошибка сервера',
