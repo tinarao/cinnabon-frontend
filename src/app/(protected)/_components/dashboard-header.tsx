@@ -15,7 +15,7 @@ const DashbordHeader = () => {
           <DashboardNavigator />
         </div>
         <div className="space-x-2 flex items-center">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <Button size="icon" variant="outline">
             <Cog className="size-5" />
           </Button>

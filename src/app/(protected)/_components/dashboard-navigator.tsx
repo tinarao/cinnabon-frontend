@@ -1,19 +1,20 @@
 'use client';
 
 import LinkElement from '@/components/NavLink';
+import ProjectsPopover from './projects-popover';
 
 const DashboardNavigator = () => {
   const linkStyles = `
-  px-4 py-2 
-  rounded-md
+    px-4 py-2 
+    rounded-md
 
-  [&.active]:text-primary 
-  [&.active]:bg-neutral-200
-  [&.active]:hover:bg-neutral-400
-  [&.active]:hover:text-white 
+    [&.active]:text-primary 
+    [&.active]:bg-neutral-200
+    [&.active]:hover:bg-neutral-400
+    [&.active]:hover:text-white 
 
-  hover:text-black
-  transition
+    hover:text-black
+    transition
   `;
   return (
     <nav>
@@ -24,9 +25,8 @@ const DashboardNavigator = () => {
           </LinkElement>
         </li>
         <li>
-          <LinkElement className={linkStyles} href="/">
-            Задачи
-          </LinkElement>
+          {/* <LinkElement className={linkStyles}>Проекты</LinkElement> */}
+          <ProjectsPopover className={linkStyles}>Проекты</ProjectsPopover>
         </li>
         <li>
           <LinkElement className={linkStyles} href="/">

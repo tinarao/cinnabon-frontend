@@ -1,13 +1,5 @@
 import NextAuth from "next-auth"
 
-// interface CUser {
-//     id: string
-//     username: string
-//     email: string
-//     currentPlan: 'free' | 'pet' | 'business'
-//     isEmailVerified: boolean;
-// }
-
 declare module "next-auth" {
     interface Session {
         user: User
@@ -17,7 +9,7 @@ declare module "next-auth" {
         id: string
         username: string
         email: string
-        currentPlan: 'free' | 'pet' | 'business'
+        currentPlan: 'free' | 'pro'
         isEmailVerified: boolean;
         _v?: number;
     }
