@@ -10,6 +10,7 @@ import { kanbansArrayValidator } from '@/validators/kanban.validator';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -70,8 +71,8 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
         {data?.length !== 0 && (
           <div className="space-y-1 grid">
             {data?.map((i) => (
-              <Button className="w-56" variant="outline" key={i._id}>
-                {i.name}
+              <Button asChild className="w-56" variant="outline" key={i._id}>
+                <Link href={`/dashboard/projects/${i._id}`}>{i.name}</Link>
               </Button>
             ))}
             <div className="py-1">

@@ -27,18 +27,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, [isSuccess]);
 
   return (
-    <>
+    <div className="h-screen">
       <DashbordHeader />
       <main className="py-2 bg-secondary">
         {isLoading ? (
-          <div className="py-48">
+          <div className="py-48 h-full">
             <Loading />
           </div>
         ) : (
           <>{children}</>
         )}
       </main>
-    </>
+    </div>
   );
 };
 
