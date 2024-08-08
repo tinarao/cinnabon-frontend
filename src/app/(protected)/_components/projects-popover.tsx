@@ -21,7 +21,6 @@ interface PPProps {
 
 const ProjectsPopover = ({ children, className }: PPProps) => {
   const router = useRouter();
-  const qc = useQueryClient();
 
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['user-projects'],
@@ -30,18 +29,10 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
         withCredentials: true,
       });
 
-      console.log(res);
-
       const kanbans = kanbansArrayValidator.parse(res.data);
       return kanbans;
     },
   });
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log(data);
-    }
-  }, [isSuccess]);
 
   const createKanban = async () => {
     const res = await axios.post(
@@ -51,8 +42,6 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
     );
 
     router.refresh();
-
-    qc.invalidateQueries({ queryKey: ['user-projects'] });
   };
 
   return (
@@ -69,7 +58,7 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
           </Button>
         )}
         {data?.length !== 0 && (
-          <div className="space-y-1 grid">
+          <div className="grid space-y-1">
             {data?.map((i) => (
               <Button asChild className="w-56" variant="outline" key={i._id}>
                 <Link href={`/dashboard/projects/${i._id}`}>{i.name}</Link>

@@ -1,6 +1,6 @@
 import { User } from "@/validators/user.validator";
 
-enum Statuses {
+export enum Statuses {
     NotStarted = 'not-started',
     InProgress = 'in-progress',
     Completed = 'completed',
@@ -8,10 +8,9 @@ enum Statuses {
 }
 
 export interface Task {
-    _id: string;
     name: string;
-    description: string;
-    status: Statuses.NotStarted;
+    description?: string;
+    status: Statuses;
 }
 
 export interface Kanban {
