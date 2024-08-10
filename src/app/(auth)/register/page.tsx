@@ -34,8 +34,6 @@ const Page = () => {
         { validateStatus: () => true, withCredentials: true }
       );
 
-      console.log(res);
-
       switch (res?.status) {
         case 400:
           toast({

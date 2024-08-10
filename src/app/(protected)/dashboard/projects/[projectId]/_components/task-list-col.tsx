@@ -1,19 +1,16 @@
-import { Statuses, Task as TaskType } from '@/types/kanban.d';
+import { Statuses, StatusesType, Task as TaskType } from '@/types/kanban.d';
 import React, { Dispatch, SetStateAction } from 'react';
 import StatusLabel from './task-status-label';
 import TaskCard from './task';
 
-const TaskList = ({
-  status,
-  tasks,
-  updateStateFn,
-  state,
-}: {
+interface TLProps {
   state: TaskType[];
-  status: Statuses;
+  status: StatusesType;
   tasks: TaskType[];
   updateStateFn: Dispatch<SetStateAction<TaskType[]>>;
-}) => {
+}
+
+const TaskList = ({ status, tasks, updateStateFn, state }: TLProps) => {
   return (
     <div className="col-span-1">
       <StatusLabel status={status} />

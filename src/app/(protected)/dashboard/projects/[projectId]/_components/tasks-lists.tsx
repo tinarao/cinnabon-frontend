@@ -43,25 +43,25 @@ const TasksLists = () => {
         <TaskList
           state={tasks}
           updateStateFn={setTasks}
-          status={Statuses.NotStarted}
+          status="not-started"
           tasks={notStarted}
         />
         <TaskList
           state={tasks}
           updateStateFn={setTasks}
-          status={Statuses.InProgress}
+          status="in-progress"
           tasks={inProgress}
         />
         <TaskList
           state={tasks}
           updateStateFn={setTasks}
-          status={Statuses.Completed}
+          status="completed"
           tasks={completed}
         />
         <TaskList
           state={tasks}
           updateStateFn={setTasks}
-          status={Statuses.Scrapped}
+          status="scrapped"
           tasks={scrapped}
         />
       </div>

@@ -7,6 +7,8 @@ export enum Statuses {
     Scrapped = 'scrapped'
 }
 
+export type StatusesType = 'completed' | 'not-started' | 'in-progress' | 'scrapped'
+
 export interface Task {
     name: string;
     description?: string;
@@ -16,8 +18,8 @@ export interface Task {
 export interface Kanban {
     _id: string;
     name: string;
-    description: string;
+    description?: string;
     tasks: Array<Task>
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

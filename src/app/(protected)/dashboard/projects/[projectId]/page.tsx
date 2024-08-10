@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button';
 import { kanbanValidator } from '@/validators/kanban.validator';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Edit } from 'lucide-react';
+import { Cog, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import TasksList from './_components/tasks-lists';
+import ProjectSettingsDropdown from './_components/project-settings-dropdown';
 
 const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
   const router = useRouter();
@@ -32,12 +33,6 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
     }
   }, [isError]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      console.log(data);
-    }
-  }, [isSuccess]);
-
   return (
     <div className="h-full py-2">
       {isLoading && (
@@ -47,16 +42,28 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
       )}
       {isSuccess && (
         <div className="container">
-          <div title="Название проекта" className="group flex gap-x-4">
-            {/* TODO: Editable h1 tag */}
-            <h1 className="text-4xl font-medium cursor-pointer">{data.name}</h1>
-            <Button
-              className="hidden group-hover:inline-flex"
-              variant="ghost"
-              size="icon"
-            >
-              <Edit className="size-4" />
-            </Button>
+          <div className="group flex justify-between">
+            <div className="flex space-x-2 items-center">
+              {/* TODO: Editable h1 tag */}
+              <h1
+                title="Название проекта"
+                className="text-4xl font-medium cursor-pointer"
+              >
+                {data.name}
+              </h1>
+              <Button
+                className="hidden group-hover:inline-flex"
+                variant="ghost"
+                size="icon"
+              >
+                <Edit className="size-4" />
+              </Button>
+            </div>
+            <ProjectSettingsDropdown project={data}>
+              <Button variant="ghost" size="sm">
+                <Cog className="size-4 mr-2" /> Настройки проекта
+              </Button>
+            </ProjectSettingsDropdown>
           </div>
           <TasksList />
         </div>

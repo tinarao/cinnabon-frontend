@@ -36,11 +36,11 @@ const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
   };
 
   return (
-    <Dialog onOpenChange={(e) => console.log(e)}>
+    <Dialog>
       <DialogTrigger asChild>
         <div
           title={`Нажмите, чтобы увидеть подробности о задаче \"${task.name}\"`}
-          className="p-3 border rounded-md hover:shadow-md transition cursor-pointer"
+          className="whitespace-nowrap overflow-hidden text-ellipsis p-3 border rounded-md hover:shadow-md transition cursor-pointer"
         >
           {task.name}
         </div>

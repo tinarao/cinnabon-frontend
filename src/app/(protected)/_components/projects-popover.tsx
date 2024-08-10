@@ -6,13 +6,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { kanbansArrayValidator } from '@/validators/kanban.validator';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useToast } from '@/components/ui/use-toast';
+import {
+  kanbanValidator,
+  kanbansArrayValidator,
+} from '@/validators/kanban.validator';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 interface PPProps {
   children: string;
@@ -21,6 +24,7 @@ interface PPProps {
 
 const ProjectsPopover = ({ children, className }: PPProps) => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['user-projects'],
@@ -41,7 +45,12 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
       { withCredentials: true }
     );
 
-    router.refresh();
+    toast({
+      title: 'Новый проект успешно создан!',
+    });
+
+    const kanban = kanbanValidator.parse(res.data);
+    router.replace(`dashboard/projects/${kanban._id}`);
   };
 
   return (

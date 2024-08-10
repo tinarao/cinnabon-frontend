@@ -1,38 +1,43 @@
-import { cn } from '@/lib/utils';
-import { Statuses } from '@/types/kanban';
+import { Statuses, StatusesType } from '@/types/kanban';
 
-const StatusLabel = ({ status }: { status: Statuses }) => {
-  type statuses = Record<Statuses, string>;
-  const variants = {
-    'not-started': 'orange',
-    'in-progress': 'blue',
-    completed: 'green',
-    scrapped: 'red',
-  };
-
-  const title = {
-    'not-started': 'Не начаты',
-    'in-progress': 'Выполняются',
+const StatusLabel = ({ status }: { status: StatusesType }) => {
+  const labels: Record<StatusesType, string> = {
     completed: 'Выполненные',
+    'in-progress': 'Выполняются',
+    'not-started': 'Не начаты',
     scrapped: 'Заброшенные',
   };
 
-  return (
-    <div
-      className={cn(
-        'col-span-1 flex items-center space-x-2 rounded-md p-2',
-        `bg-${variants[status]}-100`
-      )}
-    >
-      <div
-        className={cn(
-          'size-4 bg-orange-400 rounded-full',
-          `bg-${variants[status]}-400`
-        )}
-      />
-      <h3 className="font-medium">{title[status]}</h3>
-    </div>
-  );
+  switch (status) {
+    case 'completed':
+      return (
+        <div className="flex items-center space-x-2 p-2 bg-green-100 rounded-md">
+          <div className="size-4 bg-green-500 rounded-full" />
+          <h6 className="font-medium">{labels[status]}</h6>
+        </div>
+      );
+    case 'in-progress':
+      return (
+        <div className="flex items-center space-x-2 p-2 bg-blue-100 rounded-md">
+          <div className="size-4 bg-blue-500 rounded-full" />
+          <h6 className="font-medium">{labels[status]}</h6>
+        </div>
+      );
+    case 'not-started':
+      return (
+        <div className="flex items-center space-x-2 p-2 bg-orange-100 rounded-md">
+          <div className="size-4 bg-orange-500 rounded-full" />
+          <h6 className="font-medium">{labels[status]}</h6>
+        </div>
+      );
+    case 'scrapped':
+      return (
+        <div className="flex items-center space-x-2 p-2 bg-red-100 rounded-md">
+          <div className="size-4 bg-red-500 rounded-full" />
+          <h6 className="font-medium">{labels[status]}</h6>
+        </div>
+      );
+  }
 };
 
 export default StatusLabel;
