@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { reqUri } from '@/lib/utils';
 
 const Page = () => {
   const { toast } = useToast();
@@ -23,9 +24,9 @@ const Page = () => {
     },
     onSubmit: async ({ value }) => {
       setIsLoading(true);
-
+      const url = reqUri('api/auth/register');
       const res = await axios.post(
-        'http://localhost:3000/api/auth/register',
+        url,
         {
           email: value.email,
           username: value.username,
@@ -74,9 +75,8 @@ const Page = () => {
       }}
     >
       <title>Регистрация | Cinnabon.js</title>
-      <form.Field
-        name="username"
-        children={(field) => (
+      <form.Field name="username">
+        {(field) => (
           <div>
             <Label>Имя пользователя</Label>
             <Input
@@ -90,10 +90,9 @@ const Page = () => {
             />
           </div>
         )}
-      />
-      <form.Field
-        name="email"
-        children={(field) => (
+      </form.Field>
+      <form.Field name="email">
+        {(field) => (
           <div>
             <Label>Адрес электронной почты</Label>
             <Input
@@ -108,10 +107,9 @@ const Page = () => {
             />
           </div>
         )}
-      />
-      <form.Field
-        name="password"
-        children={(field) => (
+      </form.Field>
+      <form.Field name="password">
+        {(field) => (
           <div>
             <Label>Пароль</Label>
             <Input
@@ -126,7 +124,7 @@ const Page = () => {
             />
           </div>
         )}
-      />
+      </form.Field>
       <div className="py-2">
         <hr />
       </div>

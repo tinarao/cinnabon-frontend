@@ -10,18 +10,17 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import TasksList from './_components/tasks-lists';
 import ProjectSettingsDropdown from './_components/project-settings-dropdown';
+import { reqUri } from '@/lib/utils';
 
 const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
   const router = useRouter();
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['project-page'],
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:3000/api/kanban/id/${params.projectId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const url = reqUri(`api/kanban/id/${params.projectId}`);
+      const res = await axios.get(url, {
+        withCredentials: true,
+      });
 
       return kanbanValidator.parse(res.data);
     },
@@ -31,7 +30,7 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
     if (isError) {
       router.replace('/dashboard/projects');
     }
-  }, [isError]);
+  }, [isError, router]);
 
   return (
     <div className="h-full py-2">

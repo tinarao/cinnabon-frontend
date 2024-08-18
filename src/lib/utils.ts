@@ -25,3 +25,12 @@ export function enumFromStringValue<T>(enm: { [s: string]: T }, value: string): 
     ? value as unknown as T
     : undefined;
 }
+
+export const reqUri = (url: string): string => {
+  const apiUrl =
+    process.env.NODE_ENV === 'development'
+      ? process.env.NEXT_PUBLIC_API_DEV
+      : process.env.NEXT_PUBLIC_API_PROD;
+
+  return `${apiUrl}${url}`;
+}

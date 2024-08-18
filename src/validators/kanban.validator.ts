@@ -2,8 +2,9 @@ import { Statuses } from "@/types/kanban.d"
 import { z } from "zod"
 
 export const taskValidator = z.object({
+    id: z.string(),
     name: z.string(),
-    description: z.string(),
+    description: z.ostring(),
     status: z.nativeEnum(Statuses)
 })
 

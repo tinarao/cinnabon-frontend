@@ -1,6 +1,7 @@
 import { userValidator } from "@/validators/user.validator";
 import { queryOptions } from "@tanstack/react-query";
 import axios from "axios";
+import { reqUri } from "./utils";
 
 
 
@@ -10,7 +11,9 @@ export const userQueryOptons = queryOptions({
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-        const res = await axios.get('http://localhost:3000/api/auth/session', {
+        const url = reqUri("api/auth/session");
+        console.log(url)
+        const res = await axios.get(url, {
             withCredentials: true,
         });
 

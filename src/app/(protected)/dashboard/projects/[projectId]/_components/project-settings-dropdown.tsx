@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/components/ui/use-toast';
+import { reqUri } from '@/lib/utils';
 import { Kanban } from '@/types/kanban';
 import axios from 'axios';
 import { Trash2Icon } from 'lucide-react';
@@ -23,7 +24,7 @@ const ProjectSettingsDropdown = ({ project, children }: PSDProps) => {
   const { toast } = useToast();
   const router = useRouter();
   const deleteProjectHandler = async () => {
-    const url = `http://localhost:3000/api/kanban/${project._id}`;
+    const url = reqUri(`api/kanban/${project._id}`);
     const res = await axios.delete(url, { withCredentials: true });
     console.log(res);
 

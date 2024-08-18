@@ -4,17 +4,15 @@ import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/hooks/useUser';
+import { reqUri } from '@/lib/utils';
 
 const LogoutButton = () => {
   const router = useRouter();
   const { logout } = useUser();
 
   const logoutHandler = async () => {
-    await axios.post(
-      'http://localhost:3000/api/auth/logout',
-      {},
-      { withCredentials: true }
-    );
+    const url = reqUri('api/auth/logout');
+    await axios.post(url, {}, { withCredentials: true });
 
     logout();
     router.replace('/');

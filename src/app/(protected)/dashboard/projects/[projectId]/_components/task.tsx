@@ -61,7 +61,7 @@ const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Задача "{task.name}"</DialogTitle>
+          <DialogTitle>Задача &quot;{task.name}&quot;</DialogTitle>
           <DialogDescription>{task.description}</DialogDescription>
         </DialogHeader>
 

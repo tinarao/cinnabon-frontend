@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { useToast } from '@/components/ui/use-toast';
+import { reqUri } from '@/lib/utils';
 import {
   kanbanValidator,
   kanbansArrayValidator,
@@ -29,7 +30,8 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['user-projects'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:3000/api/kanban/my', {
+      const url = reqUri('api/kanban/my');
+      const res = await axios.get(url, {
         withCredentials: true,
       });
 
@@ -39,11 +41,8 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
   });
 
   const createKanban = async () => {
-    const res = await axios.post(
-      'http://localhost:3000/api/kanban',
-      {},
-      { withCredentials: true }
-    );
+    const url = reqUri('api/kanban');
+    const res = await axios.post(url, {}, { withCredentials: true });
 
     toast({
       title: 'Новый проект успешно создан!',
