@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -13,12 +14,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useToast } from '@/components/ui/use-toast';
 import { enumFromStringValue } from '@/lib/utils';
-import { Statuses, Task } from '@/types/kanban.d';
+import { Statuses, StatusesType, Task } from '@/types/kanban.d';
+import { PlusCircle } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
+import { nanoid } from 'nanoid';
 
 interface TCProps {
   task: Task;
+  updateStateFn: Dispatch<SetStateAction<Task[]>>;
+  state: Task[];
+}
+
+interface ATProps {
   updateStateFn: Dispatch<SetStateAction<Task[]>>;
   state: Task[];
 }
@@ -30,7 +39,12 @@ const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
     const prevState = state.filter((i) => i !== task);
     const newTasks: Task[] = [
       ...prevState,
-      { name: task.name, description: task.description, status: newStatus },
+      {
+        id: nanoid(),
+        name: task.name,
+        description: task.description,
+        status: newStatus,
+      },
     ];
     updateStateFn(newTasks);
   };
@@ -71,6 +85,26 @@ const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
         </div>
       </DialogContent>
     </Dialog>
+  );
+};
+
+TaskCard.addTask = ({ state, updateStateFn }: ATProps) => {
+  const handleAddTask = () => {
+    const newState: Task[] = [
+      ...state,
+      {
+        id: nanoid(),
+        name: 'Новая задача',
+        status: Statuses.NotStarted,
+      },
+    ];
+    updateStateFn(newState);
+  };
+
+  return (
+    <Button onClick={handleAddTask} className="w-full" variant="ghost">
+      <PlusCircle className="size-4" />
+    </Button>
   );
 };
 

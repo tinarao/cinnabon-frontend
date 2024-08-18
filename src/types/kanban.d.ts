@@ -10,6 +10,7 @@ export enum Statuses {
 export type StatusesType = 'completed' | 'not-started' | 'in-progress' | 'scrapped'
 
 export interface Task {
+    id: string
     name: string;
     description?: string;
     status: Statuses;

@@ -23,9 +23,12 @@ const TaskList = ({ status, tasks, updateStateFn, state }: TLProps) => {
             task={i}
             state={state}
             updateStateFn={updateStateFn}
-            key={i.name + i.description + i.status.toString()}
+            key={i.id + i.name}
           />
         ))}
+        {status === 'not-started' && (
+          <TaskCard.addTask state={state} updateStateFn={updateStateFn} />
+        )}
       </div>
     </div>
   );

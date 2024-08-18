@@ -4,23 +4,28 @@ import TaskList from './task-list-col';
 
 const tasksMock: Array<Task> = [
   {
+    id: '12ewds',
     name: 'Помыть посуду',
     status: Statuses.NotStarted,
   },
   {
+    id: '12ewds1231232',
     name: 'Помыть кота',
     status: Statuses.InProgress,
   },
   {
+    id: '1235tgrf',
     name: 'Попить кофе',
     status: Statuses.NotStarted,
     description: 'Люблю пить кофе. Надо попить кофе.',
   },
   {
+    id: '4334tregdf',
     name: 'Погулять',
     status: Statuses.Completed,
   },
   {
+    id: 'dsvcgfdghadsf',
     name: 'Не разочаровать родителей',
     status: Statuses.Scrapped,
   },
