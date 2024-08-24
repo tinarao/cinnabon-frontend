@@ -11,7 +11,7 @@ const StatusLabel = ({ status }: { status: StatusesType }) => {
   switch (status) {
     case 'completed':
       return (
-        <div className="flex items-center space-x-2 p-2 dark:border light:bg-green-100 rounded-md">
+        <div className="flex items-center space-x-2 p-2 dark:bg-background dark:border light:bg-green-100 rounded-md">
           <div className="size-4 bg-green-500 rounded-full" />
           <h6 className="font-medium">{labels[status]}</h6>
         </div>

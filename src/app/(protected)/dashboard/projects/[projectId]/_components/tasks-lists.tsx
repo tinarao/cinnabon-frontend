@@ -4,28 +4,28 @@ import TaskList from './task-list-col';
 
 const tasksMock: Array<Task> = [
   {
-    id: '12ewds',
+    id: '0',
     name: 'Помыть посуду',
     status: Statuses.NotStarted,
   },
   {
-    id: '12ewds1231232',
+    id: '1',
     name: 'Помыть кота',
     status: Statuses.InProgress,
   },
   {
-    id: '1235tgrf',
+    id: '2',
     name: 'Попить кофе',
     status: Statuses.NotStarted,
     description: 'Люблю пить кофе. Надо попить кофе.',
   },
   {
-    id: '4334tregdf',
+    id: '3',
     name: 'Погулять',
     status: Statuses.Completed,
   },
   {
-    id: 'dsvcgfdghadsf',
+    id: '4',
     name: 'Не разочаровать родителей',
     status: Statuses.Scrapped,
   },
@@ -44,7 +44,7 @@ const TasksLists = () => {
       <div className="py-2">
         <hr />
       </div>
-      <div className="grid grid-cols-4 gap-x-4">
+      <div className="grid grid-cols-4 gap-x-2 h-full">
         <TaskList
           state={tasks}
           updateStateFn={setTasks}

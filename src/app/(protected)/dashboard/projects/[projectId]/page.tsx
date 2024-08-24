@@ -40,7 +40,7 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
         </div>
       )}
       {isSuccess && (
-        <div className="container">
+        <div className="container h-full">
           <div className="group flex justify-between">
             <div className="flex space-x-2 items-center">
               {/* TODO: Editable h1 tag */}

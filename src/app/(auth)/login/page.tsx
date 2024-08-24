@@ -44,6 +44,7 @@ const Page = () => {
           });
           break;
         case 201:
+          setIsLoading(false);
           router.replace('/dashboard');
           break;
         default:

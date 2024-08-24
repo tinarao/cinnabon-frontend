@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theming/ThemeProvider';
 import { Toaster } from '@/components/ui/toaster';
 import QueryProvider from '@/components/providers/Query';
+import DNDProvider from '@/components/providers/Dnd';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,15 +22,17 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster />
-            {children}
-          </ThemeProvider>
+          <DNDProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Toaster />
+              {children}
+            </ThemeProvider>
+          </DNDProvider>
         </QueryProvider>
       </body>
     </html>
