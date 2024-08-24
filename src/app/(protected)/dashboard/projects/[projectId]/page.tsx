@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import TasksList from './_components/tasks-lists';
 import ProjectSettingsDropdown from './_components/project-settings-dropdown';
 import { reqUri } from '@/lib/utils';
+import { useBlur } from '@/hooks/useBlur';
 
 const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
   const router = useRouter();
@@ -64,7 +65,7 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
               </Button>
             </ProjectSettingsDropdown>
           </div>
-          <TasksList />
+          <TasksList p_tasks={data.tasks} kanbanId={data._id} />
         </div>
       )}
     </div>

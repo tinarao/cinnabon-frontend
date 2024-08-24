@@ -12,7 +12,6 @@ export const userQueryOptons = queryOptions({
     refetchOnWindowFocus: false,
     queryFn: async () => {
         const url = reqUri("api/auth/session");
-        console.log(url)
         const res = await axios.get(url, {
             withCredentials: true,
         });

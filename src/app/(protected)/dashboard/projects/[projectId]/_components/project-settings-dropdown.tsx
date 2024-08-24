@@ -26,7 +26,6 @@ const ProjectSettingsDropdown = ({ project, children }: PSDProps) => {
   const deleteProjectHandler = async () => {
     const url = reqUri(`api/kanban/${project._id}`);
     const res = await axios.delete(url, { withCredentials: true });
-    console.log(res);
 
     toast({
       title: 'Проект удалён!',

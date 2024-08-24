@@ -1,6 +1,9 @@
 import { Statuses, Task } from '@/types/kanban.d';
 import { useState } from 'react';
 import TaskList from './task-list-col';
+import { useBlur } from '@/hooks/useBlur';
+import axios from 'axios';
+import { reqUri } from '@/lib/utils';
 
 const tasksMock: Array<Task> = [
   {
@@ -31,13 +34,33 @@ const tasksMock: Array<Task> = [
   },
 ];
 
-const TasksLists = () => {
-  const [tasks, setTasks] = useState<Array<Task>>(tasksMock);
+const TasksLists = ({
+  kanbanId,
+  p_tasks,
+}: {
+  kanbanId: string;
+  p_tasks: Array<Task>;
+}) => {
+  const [tasks, setTasks] = useState<Array<Task>>(p_tasks);
 
   const inProgress = tasks.filter((i) => i.status === Statuses.InProgress);
   const completed = tasks.filter((i) => i.status === Statuses.Completed);
   const scrapped = tasks.filter((i) => i.status === Statuses.Scrapped);
   const notStarted = tasks.filter((i) => i.status === Statuses.NotStarted);
+
+  useBlur(async () => {
+    const res = await axios.patch(
+      reqUri(`api/kanban/${kanbanId}`),
+      {
+        tasks,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log('Got /patch response: ', res);
+  });
 
   return (
     <>

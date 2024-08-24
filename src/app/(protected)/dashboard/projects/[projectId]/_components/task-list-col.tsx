@@ -10,7 +10,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import StatusLabel from './task-status-label';
 import TaskCard from './task';
 import { useDrop } from 'react-dnd';
-import { cn } from '@/lib/utils';
+import { cn, reqUri } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 
 interface TLProps {
@@ -22,11 +22,10 @@ interface TLProps {
 
 const TaskList = ({ status, tasks, updateStateFn, state }: TLProps) => {
   const { toast } = useToast();
+
   const [{ isOver }, drop] = useDrop({
     accept: 'item',
     drop: (item: Task) => {
-      console.log(`Change ${item.name} status to ${status}`);
-
       let newState: Array<Task> = [];
       state.forEach((task) => {
         if (task.id == item.id) {
