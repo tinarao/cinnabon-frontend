@@ -5,16 +5,20 @@ import { Button } from '@/components/ui/button';
 import { kanbanValidator } from '@/validators/kanban.validator';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Cog, Edit } from 'lucide-react';
+import { Check, Cog, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TasksList from './_components/tasks-lists';
 import ProjectSettingsDropdown from './_components/project-settings-dropdown';
 import { reqUri } from '@/lib/utils';
-import { useBlur } from '@/hooks/useBlur';
+import { useToast } from '@/components/ui/use-toast';
 
 const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [projectName, setProjectName] = useState<string | undefined>(undefined);
+  const { toast } = useToast();
   const router = useRouter();
+
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['project-page'],
     queryFn: async () => {
@@ -27,11 +31,37 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
     },
   });
 
+  const handleProjectNameChange = async () => {
+    const res = axios
+      .patch(
+        reqUri(`api/kanban/name/${data?._id}/${projectName}`),
+        {},
+        { withCredentials: true }
+      )
+      .then((r) => {
+        if (r.status !== 200) {
+          toast({
+            title: 'Не удалось изменить имя проекта',
+            description:
+              'Возникла ошибка при изменении имени проекта. Попробуйте ещё раз через некоторое время.',
+          });
+        } else {
+          toast({ title: 'Имя проекта успешно изменено!', variant: 'info' });
+        }
+      });
+  };
+
   useEffect(() => {
     if (isError) {
       router.replace('/dashboard/projects');
     }
   }, [isError, router]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setProjectName(data.name);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="h-full py-2">
@@ -45,19 +75,47 @@ const ProjectIdPage = ({ params }: { params: { projectId: string } }) => {
           <div className="group flex justify-between">
             <div className="flex space-x-2 items-center">
               {/* TODO: Editable h1 tag */}
-              <h1
-                title="Название проекта"
-                className="text-4xl font-medium cursor-pointer"
-              >
-                {data.name}
-              </h1>
-              <Button
-                className="hidden group-hover:inline-flex"
-                variant="ghost"
-                size="icon"
-              >
-                <Edit className="size-4" />
-              </Button>
+              {isEditing ? (
+                <>
+                  <Button
+                    onClick={() => {
+                      setIsEditing(false);
+                      handleProjectNameChange();
+                    }}
+                    variant="outline"
+                    size="icon"
+                  >
+                    <Check className="size-4" />
+                  </Button>
+                  <input
+                    className="text-4xl p-0 m-0 font-medium w-min border-b-2"
+                    value={projectName}
+                    onChange={(e) => setProjectName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        setIsEditing(false);
+                        handleProjectNameChange();
+                      }
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    onClick={() => setIsEditing(true)}
+                    variant="ghost"
+                    size="icon"
+                  >
+                    <Edit className="size-4" />
+                  </Button>
+                  <h1
+                    title="Название проекта"
+                    className="text-4xl font-medium cursor-pointer"
+                  >
+                    {projectName}
+                  </h1>
+                </>
+              )}
             </div>
             <ProjectSettingsDropdown project={data}>
               <Button variant="ghost" size="sm">

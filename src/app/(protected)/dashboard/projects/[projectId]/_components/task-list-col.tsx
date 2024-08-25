@@ -6,9 +6,15 @@ import {
   Task,
   Task as TaskType,
 } from '@/types/kanban.d';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  memo,
+  useEffect,
+  useState,
+} from 'react';
 import StatusLabel from './task-status-label';
-import TaskCard from './task';
+import TaskCard, { AddTask } from './task';
 import { useDrop } from 'react-dnd';
 import { cn, reqUri } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
@@ -20,7 +26,7 @@ interface TLProps {
   updateStateFn: Dispatch<SetStateAction<TaskType[]>>;
 }
 
-const TaskList = ({ status, tasks, updateStateFn, state }: TLProps) => {
+const TaskList = memo(({ status, tasks, updateStateFn, state }: TLProps) => {
   const { toast } = useToast();
 
   const [{ isOver }, drop] = useDrop({
@@ -69,11 +75,11 @@ const TaskList = ({ status, tasks, updateStateFn, state }: TLProps) => {
           />
         ))}
         {status === 'not-started' && (
-          <TaskCard.addTask state={state} updateStateFn={updateStateFn} />
+          <AddTask state={state} updateStateFn={updateStateFn} />
         )}
       </div>
     </div>
   );
-};
+});
 
 export default TaskList;

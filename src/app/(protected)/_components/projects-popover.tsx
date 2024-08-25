@@ -14,7 +14,7 @@ import {
 } from '@/validators/kanban.validator';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { PlusCircle } from 'lucide-react';
+import { List, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -75,12 +75,13 @@ const ProjectsPopover = ({ children, className }: PPProps) => {
             <div className="py-1">
               <hr />
             </div>
-            <Button
-              size="sm"
-              onClick={createKanban}
-              variant="outline"
-              className="w-full"
-            >
+            <Button size="sm" variant="outline" asChild>
+              <Link href="/dashboard/projects">
+                <List className="size-4 mr-2" />
+                Все проекты
+              </Link>
+            </Button>
+            <Button size="sm" onClick={createKanban} variant="outline">
               <PlusCircle className="size-4 mr-2" /> Создать проект
             </Button>
           </div>

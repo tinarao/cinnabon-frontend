@@ -5,35 +5,6 @@ import { useBlur } from '@/hooks/useBlur';
 import axios from 'axios';
 import { reqUri } from '@/lib/utils';
 
-const tasksMock: Array<Task> = [
-  {
-    id: '0',
-    name: 'Помыть посуду',
-    status: Statuses.NotStarted,
-  },
-  {
-    id: '1',
-    name: 'Помыть кота',
-    status: Statuses.InProgress,
-  },
-  {
-    id: '2',
-    name: 'Попить кофе',
-    status: Statuses.NotStarted,
-    description: 'Люблю пить кофе. Надо попить кофе.',
-  },
-  {
-    id: '3',
-    name: 'Погулять',
-    status: Statuses.Completed,
-  },
-  {
-    id: '4',
-    name: 'Не разочаровать родителей',
-    status: Statuses.Scrapped,
-  },
-];
-
 const TasksLists = ({
   kanbanId,
   p_tasks,
@@ -59,6 +30,7 @@ const TasksLists = ({
       }
     );
 
+    // TODO: Control this
     console.log('Got /patch response: ', res);
   });
 

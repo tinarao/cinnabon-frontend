@@ -17,7 +17,7 @@ import {
 import { cn, enumFromStringValue } from '@/lib/utils';
 import { Statuses, StatusesType, Task } from '@/types/kanban.d';
 import { FileQuestion, PlusCircle } from 'lucide-react';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, memo, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDrag } from 'react-dnd';
 
@@ -32,7 +32,7 @@ interface ATProps {
   state: Task[];
 }
 
-const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
+const TaskCard = memo(({ task, updateStateFn, state }: TCProps) => {
   const [dragOpts, drag] = useDrag({
     type: 'item',
     item: task,
@@ -104,9 +104,9 @@ const TaskCard = ({ task, updateStateFn, state }: TCProps) => {
       </Dialog>
     </div>
   );
-};
+});
 
-TaskCard.addTask = ({ state, updateStateFn }: ATProps) => {
+export const AddTask = memo(({ state, updateStateFn }: ATProps) => {
   const handleAddTask = () => {
     const newState: Task[] = [
       ...state,
@@ -129,6 +129,9 @@ TaskCard.addTask = ({ state, updateStateFn }: ATProps) => {
       </Button>
     </>
   );
-};
+});
+
+TaskCard.displayName = 'TaskCard';
+AddTask.displayName = 'AddTask';
 
 export default TaskCard;
